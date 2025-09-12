@@ -1,33 +1,45 @@
 package com.leo.shoppr.controller;
 
+import com.leo.shoppr.model.Product;
+import com.leo.shoppr.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@RequestMapping("/products")
 public class ProductController {
 
-    @GetMapping("/products")
-    public ResponseEntity<String> getAllProducts() {
-        return ResponseEntity.ok("All Products");
+    @Autowired
+    ProductService productService;
+
+    @GetMapping
+    public ResponseEntity<List<Product>> getAllProducts() {
+        return ResponseEntity.ok(productService.getAllProducts());
     }
 
-    @GetMapping("/products/{id}")
-    public ResponseEntity<String> getProductById(@PathVariable String id) {
-        return ResponseEntity.ok("Product with id: ".concat(id));
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable String id) {
+        return ResponseEntity.ok(productService.getProductById(id));
     }
 
-    @PostMapping("/products")
-    public ResponseEntity<String> createProduct() {
-        return ResponseEntity.ok("Product created!");
+    @PostMapping
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        Product createdProduct = productService.createProduct(product);
+        return ResponseEntity.status(201).body(createdProduct);
     }
 
-    @PutMapping("/products/{id}")
-    public ResponseEntity<String> updateProduct(@PathVariable String id) {
-        return ResponseEntity.ok("Product updated with id: ".concat(id));
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Product product) {
+        Product updatedProduct = productService.updateProduct(id, product);
+        return ResponseEntity.ok(updatedProduct);
     }
 
-    @DeleteMapping("/products/{id}")
-    public ResponseEntity<String> deleteProduct(@PathVariable String id) {
-        return ResponseEntity.ok("Product deleted with id: ".concat(id));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable String id) {
+        productService.deleteProduct(id);
+        return ResponseEntity.noContent().build();
     }
 }
