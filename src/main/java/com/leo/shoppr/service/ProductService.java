@@ -1,5 +1,6 @@
 package com.leo.shoppr.service;
 
+import com.leo.shoppr.exception.ProductNotFoundException;
 import com.leo.shoppr.model.Product;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class ProductService {
         return products.stream()
                 .filter(p -> p.getId().equals(id))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(() -> new ProductNotFoundException(id));
     }
 
     public Product createProduct(Product product) {
@@ -45,7 +46,7 @@ public class ProductService {
                 return updatedProduct;
             }
         }
-        return null;
+        throw new ProductNotFoundException(id);
     }
 
     public void deleteProduct(String id) {

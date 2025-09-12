@@ -5,6 +5,7 @@ import com.leo.shoppr.response.CustomResponse;
 import com.leo.shoppr.response.ResponseStatus;
 import com.leo.shoppr.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,7 +46,7 @@ public class ProductController {
         response.setMessage("Product created successfully.");
         response.setData(productService.createProduct(product));
 
-        return ResponseEntity.status(201).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/{id}")
