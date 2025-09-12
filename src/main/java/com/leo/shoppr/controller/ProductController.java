@@ -1,6 +1,8 @@
 package com.leo.shoppr.controller;
 
 import com.leo.shoppr.model.Product;
+import com.leo.shoppr.response.CustomResponse;
+import com.leo.shoppr.response.ResponseStatus;
 import com.leo.shoppr.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,30 +18,55 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
-        return ResponseEntity.ok(productService.getAllProducts());
+    public ResponseEntity<CustomResponse<List<Product>>> getAllProducts() {
+        CustomResponse<List<Product>> response = new CustomResponse<>();
+
+        response.setStatus(ResponseStatus.SUCCESS);
+        response.setData(productService.getAllProducts());
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable String id) {
-        return ResponseEntity.ok(productService.getProductById(id));
+    public ResponseEntity<CustomResponse<Product>> getProductById(@PathVariable String id) {
+        CustomResponse<Product> response = new CustomResponse<>();
+
+        response.setStatus(ResponseStatus.SUCCESS);
+        response.setData(productService.getProductById(id));
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        Product createdProduct = productService.createProduct(product);
-        return ResponseEntity.status(201).body(createdProduct);
+    public ResponseEntity<CustomResponse<Product>> createProduct(@RequestBody Product product) {
+        CustomResponse<Product> response = new CustomResponse<>();
+
+        response.setStatus(ResponseStatus.SUCCESS);
+        response.setMessage("Product created successfully.");
+        response.setData(productService.createProduct(product));
+
+        return ResponseEntity.status(201).body(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable String id, @RequestBody Product product) {
-        Product updatedProduct = productService.updateProduct(id, product);
-        return ResponseEntity.ok(updatedProduct);
+    public ResponseEntity<CustomResponse<Product>> updateProduct(@PathVariable String id, @RequestBody Product product) {
+        CustomResponse<Product> response = new CustomResponse<>();
+
+        response.setStatus(ResponseStatus.SUCCESS);
+        response.setMessage("Product updated successfully.");
+        response.setData(productService.updateProduct(id, product));
+
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable String id) {
+    public ResponseEntity<CustomResponse<Void>> deleteProduct(@PathVariable String id) {
+        CustomResponse<Void> response = new CustomResponse<>();
+
+        response.setStatus(ResponseStatus.SUCCESS);
+        response.setMessage("Product deleted successfully.");
         productService.deleteProduct(id);
-        return ResponseEntity.noContent().build();
+
+        return ResponseEntity.ok(response);
     }
 }
