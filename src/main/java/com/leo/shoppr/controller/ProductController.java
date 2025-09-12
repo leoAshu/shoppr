@@ -4,6 +4,7 @@ import com.leo.shoppr.model.Product;
 import com.leo.shoppr.response.CustomResponse;
 import com.leo.shoppr.response.ResponseStatus;
 import com.leo.shoppr.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomResponse<Product>> createProduct(@RequestBody Product product) {
+    public ResponseEntity<CustomResponse<Product>> createProduct(@Valid @RequestBody Product product) {
         CustomResponse<Product> response = new CustomResponse<>();
 
         response.setStatus(ResponseStatus.SUCCESS);
@@ -50,7 +51,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomResponse<Product>> updateProduct(@PathVariable String id, @RequestBody Product product) {
+    public ResponseEntity<CustomResponse<Product>> updateProduct(@PathVariable String id, @Valid @RequestBody Product product) {
         CustomResponse<Product> response = new CustomResponse<>();
 
         response.setStatus(ResponseStatus.SUCCESS);
