@@ -14,15 +14,6 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-//    private List<Product> products = new ArrayList<>(Arrays.asList(
-//            new Product("p1", "Laptop", "14-inch ultrabook with 16GB RAM", 999.99, 12),
-//            new Product("p2", "Smartphone", "6.5-inch AMOLED display, 128GB storage", 699.49, 30),
-//            new Product("p3", "Headphones", "Noise-cancelling over-ear headphones", 149.89, 50),
-//            new Product("p4", "Monitor", "27-inch 4K UHD monitor", 329.00, 15),
-//            new Product("p5", "Keyboard", "Mechanical keyboard with RGB lighting", 89.99, 40)
-//    ));
-
-
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
