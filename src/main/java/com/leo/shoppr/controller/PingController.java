@@ -15,10 +15,10 @@ public class PingController {
 
     @GetMapping("/ping")
     public ResponseEntity<CustomResponse<Void>> ping() {
-        CustomResponse<Void> response = new CustomResponse<>();
-
-        response.setStatus(ResponseStatus.SUCCESS);
-        response.setMessage(message);
+        CustomResponse<Void> response = CustomResponse.<Void>builder()
+                .status(ResponseStatus.SUCCESS)
+                .message(message)
+                .build();
 
         return ResponseEntity.ok(response);
     }
