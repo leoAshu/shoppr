@@ -1,7 +1,7 @@
 package com.leo.shoppr.service;
 
 import com.leo.shoppr.exception.ProductNotFoundException;
-import com.leo.shoppr.model.Product;
+import com.leo.shoppr.entity.Product;
 import com.leo.shoppr.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

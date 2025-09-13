@@ -1,6 +1,6 @@
 package com.leo.shoppr.controller;
 
-import com.leo.shoppr.model.Product;
+import com.leo.shoppr.entity.Product;
 import com.leo.shoppr.response.CustomResponse;
 import com.leo.shoppr.response.ResponseStatus;
 import com.leo.shoppr.service.ProductService;

@@ -1,6 +1,6 @@
 package com.leo.shoppr.config;
 
-import com.leo.shoppr.model.Product;
+import com.leo.shoppr.entity.Product;
 import com.leo.shoppr.repository.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

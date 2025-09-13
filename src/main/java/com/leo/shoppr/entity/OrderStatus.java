@@ -1,4 +1,4 @@
-package com.leo.shoppr.model;
+package com.leo.shoppr.entity;
 
 public enum OrderStatus {
     PENDING,            // Order placed, waiting for payment confirmation

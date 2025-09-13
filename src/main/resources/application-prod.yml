@@ -18,7 +18,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
 ping:
   message: Shoppr is Live!
 management:
@@ -27,3 +27,7 @@ management:
       exposure:
         include: "*"
         exclude: "env,beans"
+logging:
+  level:
+    root: INFO
+    com.leo.shoppr: WARN

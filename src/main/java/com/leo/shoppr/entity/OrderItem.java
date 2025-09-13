@@ -1,4 +1,4 @@
-package com.leo.shoppr.model;
+package com.leo.shoppr.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
