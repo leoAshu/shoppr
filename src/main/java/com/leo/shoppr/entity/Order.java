@@ -1,5 +1,6 @@
 package com.leo.shoppr.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Positive;
@@ -34,6 +35,7 @@ public class Order {
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<OrderItem> items = new ArrayList<>();
 
     protected Order() {
@@ -47,6 +49,42 @@ public class Order {
         this.items = items;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id='" + id + '\'' +
+                ", status=" + status +
+                ", total=" + total +
+                ", createdAt=" + createdAt +
+                ", user=" + user +
+                ", items=" + items +
+                '}';
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -54,7 +92,7 @@ public class Order {
     public static class Builder {
         private OrderStatus status = OrderStatus.PENDING;
         private BigDecimal total;
-        private LocalDateTime createdAt;
+        private LocalDateTime createdAt = LocalDateTime.now();
         private User user;
         private List<OrderItem> items = new ArrayList<>();
 
