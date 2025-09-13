@@ -33,12 +33,6 @@ public class OrderController {
                 .data(orderService.getAllOrders())
                 .build();
 
-        List<Order> orders = orderService.getAllOrders();
-        logger.debug("length: {}", orders.size());
-
-        orderService.getAllOrders().forEach(o -> logger.debug(o.toString()));
-//        logger.debug(orderService.getAllOrders());
-
         return  ResponseEntity.ok(response);
     }
 
