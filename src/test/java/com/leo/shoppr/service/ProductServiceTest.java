@@ -1,5 +1,6 @@
 package com.leo.shoppr.service;
 
+import com.leo.shoppr.dto.response.ProductResponse;
 import com.leo.shoppr.exception.ProductNotFoundException;
 import com.leo.shoppr.entity.Product;
 import com.leo.shoppr.repository.ProductRepository;
@@ -53,7 +54,7 @@ class ProductServiceTest {
     public void testGetAllProducts() {
         when(productRepository.findAll()).thenReturn(Arrays.asList(product1, product2));
 
-        List<Product> products = productService.getAllProducts();
+        List<ProductResponse> products = productService.getAllProducts();
 
         assertEquals(2, products.size());
         assertEquals("Laptop", products.get(0).getName());
@@ -65,7 +66,7 @@ class ProductServiceTest {
     public void testGetProductById_Found() {
         when(productRepository.findByName("Laptop")).thenReturn(Optional.of(product1));
 
-        Product product = productService.getProductByName("Laptop");
+        ProductResponse product = productService.getProductByName("Laptop");
 
         assertNotNull(product);
         assertEquals("Laptop", product.getName());

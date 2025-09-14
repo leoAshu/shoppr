@@ -6,6 +6,7 @@ import com.leo.shoppr.entity.User;
 import com.leo.shoppr.dto.common.CustomResponse;
 import com.leo.shoppr.dto.common.ResponseStatus;
 import com.leo.shoppr.service.UserService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<CustomResponse<UserResponse>> signUp(@RequestBody CreateUserRequest user) {
+    public ResponseEntity<CustomResponse<UserResponse>> signUp(@Valid @RequestBody CreateUserRequest user) {
         logger.debug("/signup");
         logger.debug("param: {}", user);
 

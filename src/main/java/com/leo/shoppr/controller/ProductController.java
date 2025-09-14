@@ -1,6 +1,7 @@
 package com.leo.shoppr.controller;
 
-import com.leo.shoppr.entity.Product;
+import com.leo.shoppr.dto.request.CreateProductRequest;
+import com.leo.shoppr.dto.response.ProductResponse;
 import com.leo.shoppr.dto.common.CustomResponse;
 import com.leo.shoppr.dto.common.ResponseStatus;
 import com.leo.shoppr.service.ProductService;
@@ -20,8 +21,8 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping
-    public ResponseEntity<CustomResponse<List<Product>>> getAllProducts() {
-        CustomResponse<List<Product>> response = CustomResponse.<List<Product>>builder()
+    public ResponseEntity<CustomResponse<List<ProductResponse>>> getAllProducts() {
+        CustomResponse<List<ProductResponse>> response = CustomResponse.<List<ProductResponse>>builder()
                 .status(ResponseStatus.SUCCESS)
                 .data(productService.getAllProducts())
                 .build();
@@ -30,8 +31,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomResponse<Product>> getProductById(@PathVariable String id) {
-        CustomResponse<Product> response = CustomResponse.<Product>builder()
+    public ResponseEntity<CustomResponse<ProductResponse>> getProductById(@PathVariable String id) {
+        CustomResponse<ProductResponse> response = CustomResponse.<ProductResponse>builder()
                 .status(ResponseStatus.SUCCESS)
                 .data(productService.getProductById(id))
                 .build();
@@ -40,8 +41,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomResponse<Product>> createProduct(@Valid @RequestBody Product product) {
-        CustomResponse<Product> response = CustomResponse.<Product>builder()
+    public ResponseEntity<CustomResponse<ProductResponse>> createProduct(@Valid @RequestBody CreateProductRequest product) {
+        CustomResponse<ProductResponse> response = CustomResponse.<ProductResponse>builder()
                 .status(ResponseStatus.SUCCESS)
                 .message("Product created successfully")
                 .data(productService.createProduct(product))
@@ -51,8 +52,8 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomResponse<Product>> updateProduct(@PathVariable String id, @Valid @RequestBody Product product) {
-        CustomResponse<Product> response = CustomResponse.<Product>builder()
+    public ResponseEntity<CustomResponse<ProductResponse>> updateProduct(@PathVariable String id, @Valid @RequestBody CreateProductRequest product) {
+        CustomResponse<ProductResponse> response = CustomResponse.<ProductResponse>builder()
                 .status(ResponseStatus.SUCCESS)
                 .message("Product updated successfully")
                 .data(productService.updateProduct(id, product))

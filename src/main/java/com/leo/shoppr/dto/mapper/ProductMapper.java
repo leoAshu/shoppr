@@ -1,13 +1,21 @@
 package com.leo.shoppr.dto.mapper;
 
+import com.leo.shoppr.dto.request.CreateProductRequest;
 import com.leo.shoppr.dto.response.ProductResponse;
 import com.leo.shoppr.entity.Product;
+import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-
+@Component
 public class ProductMapper {
 
-//    public Product toEntity(CreatePr)
+    public Product toEntity(CreateProductRequest productRequest) {
+        return Product.builder()
+                .name(productRequest.getName())
+                .description(productRequest.getDescription())
+                .price(productRequest.getPrice())
+                .stock(productRequest.getStock())
+                .build();
+    }
 
     public ProductResponse toDTO(Product product) {
         ProductResponse response = new ProductResponse();
