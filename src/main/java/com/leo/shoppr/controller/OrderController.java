@@ -1,5 +1,7 @@
 package com.leo.shoppr.controller;
 
+import com.leo.shoppr.dto.request.CreateOrderRequest;
+import com.leo.shoppr.dto.response.OrderResponse;
 import com.leo.shoppr.entity.Order;
 import com.leo.shoppr.dto.common.CustomResponse;
 import com.leo.shoppr.dto.common.ResponseStatus;
@@ -23,10 +25,10 @@ public class OrderController {
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @GetMapping
-    public ResponseEntity<CustomResponse<List<Order>>> getAllOrders() {
+    public ResponseEntity<CustomResponse<List<OrderResponse>>> getAllOrders() {
         logger.debug("GET: /orders");
 
-        CustomResponse<List<Order>> response = CustomResponse.<List<Order>>builder()
+        CustomResponse<List<OrderResponse>> response = CustomResponse.<List<OrderResponse>>builder()
                 .status(ResponseStatus.SUCCESS)
                 .data(orderService.getAllOrders())
                 .build();
@@ -35,10 +37,10 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CustomResponse<Order>> getOrderById(@PathVariable String id) {
+    public ResponseEntity<CustomResponse<OrderResponse>> getOrderById(@PathVariable String id) {
         logger.debug("GET: /orders/{}", id);
 
-        CustomResponse<Order> response = CustomResponse.<Order>builder()
+        CustomResponse<OrderResponse> response = CustomResponse.<OrderResponse>builder()
                 .status(ResponseStatus.SUCCESS)
                 .data(orderService.getOrderById(id))
                 .build();
@@ -47,11 +49,11 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomResponse<Order>> createOrder(@Valid @RequestBody Order order) {
+    public ResponseEntity<CustomResponse<OrderResponse>> createOrder(@Valid @RequestBody CreateOrderRequest order) {
         logger.debug("POST: /orders");
         logger.debug(order.toString());
 
-        CustomResponse<Order> response = CustomResponse.<Order>builder()
+        CustomResponse<OrderResponse> response = CustomResponse.<OrderResponse>builder()
                 .status(ResponseStatus.SUCCESS)
                 .data(orderService.createOrder(order))
                 .build();
