@@ -8,8 +8,9 @@ import com.leo.shoppr.entity.OrderItem;
 import com.leo.shoppr.entity.Product;
 import com.leo.shoppr.entity.User;
 import com.leo.shoppr.exception.OrderNotFoundException;
-import com.leo.shoppr.repository.OrderItemRepository;
+import com.leo.shoppr.exception.UserNotFoundException;
 import com.leo.shoppr.repository.OrderRepository;
+import com.leo.shoppr.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
-    private UserService userService;
+    private UserRepository userRepository;
 
     @Autowired
     private ProductService productService;
@@ -40,7 +41,6 @@ public class OrderService {
 
     public OrderResponse getOrderById(String id) {
         Optional<Order> order = orderRepository.findById(id);
-
         if(order.isEmpty()) throw new OrderNotFoundException(id);
 
         return orderMapper.toDTO(order.get());
@@ -48,7 +48,9 @@ public class OrderService {
 
     public OrderResponse createOrder(CreateOrderRequest orderRequest) {
 
-        User user = userService.getUser(orderRequest.getUserId());
+        User user = userRepository
+                .findById(orderRequest.getUserId())
+                .orElseThrow(() -> new UserNotFoundException("id", orderRequest.getUserId()));
 
         List<OrderItem> items = orderRequest.getItems().stream()
                 .map(i -> {

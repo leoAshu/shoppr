@@ -1,5 +1,7 @@
 package com.leo.shoppr.controller;
 
+import com.leo.shoppr.dto.request.CreateUserRequest;
+import com.leo.shoppr.dto.response.UserResponse;
 import com.leo.shoppr.entity.User;
 import com.leo.shoppr.dto.common.CustomResponse;
 import com.leo.shoppr.dto.common.ResponseStatus;
@@ -19,11 +21,11 @@ public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @GetMapping("/user/{id}")
-    public ResponseEntity<CustomResponse<User>> getUser(@PathVariable String id) {
+    public ResponseEntity<CustomResponse<UserResponse>> getUser(@PathVariable String id) {
         logger.debug("/user/{id}");
         logger.debug("param: {}", id);
 
-        CustomResponse<User> response = CustomResponse.<User>builder()
+        CustomResponse<UserResponse> response = CustomResponse.<UserResponse>builder()
                 .status(ResponseStatus.SUCCESS)
                 .data(userService.getUser(id))
                 .build();
@@ -32,11 +34,11 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<CustomResponse<User>> signUp(@RequestBody User user) {
+    public ResponseEntity<CustomResponse<UserResponse>> signUp(@RequestBody CreateUserRequest user) {
         logger.debug("/signup");
         logger.debug("param: {}", user);
 
-        CustomResponse<User> response = CustomResponse.<User>builder()
+        CustomResponse<UserResponse> response = CustomResponse.<UserResponse>builder()
                 .status(ResponseStatus.SUCCESS)
                 .message("Signup successful")
                 .data(userService.signUp(user))
