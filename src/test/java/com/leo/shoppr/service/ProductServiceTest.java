@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -32,8 +33,19 @@ class ProductServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
 
-        product1 = new Product("p1", "Laptop", "14-inch ultrabook", 1200.0, 10);
-        product2 = new Product("p2", "Phone", "AMOLED screen", 800.0, 20);
+        product1 = Product.builder()
+                .name("Laptop")
+                .description("14-inch ultrabook")
+                .price(BigDecimal.valueOf(1200.00))
+                .stock(10)
+                .build();
+
+        product2 = Product.builder()
+                .name("Phone")
+                .description("AMOLED screen")
+                .price(BigDecimal.valueOf(800.00))
+                .stock(20)
+                .build();
     }
 
     @Test
@@ -51,22 +63,22 @@ class ProductServiceTest {
     @Test
     @DisplayName("Get Existing Product by Id")
     public void testGetProductById_Found() {
-        when(productRepository.findById("p1")).thenReturn(Optional.of(product1));
+        when(productRepository.findByName("Laptop")).thenReturn(Optional.of(product1));
 
-        Product product = productService.getProductById("p1");
+        Product product = productService.getProductByName("Laptop");
 
         assertNotNull(product);
-        assertEquals("p1", product.getId());
-        verify(productRepository, times(1)).findById("p1");
+        assertEquals("Laptop", product.getName());
+        verify(productRepository, times(1)).findByName("Laptop");
     }
 
     @Test
     @DisplayName("Get Non-Existing Product by Id")
     public void testGetProductById_NotFound() {
-        when(productRepository.findById("p99")).thenReturn(Optional.empty());
+        when(productRepository.findByName("PlayStation")).thenReturn(Optional.empty());
 
-        assertThrows(ProductNotFoundException.class, () -> productService.getProductById("p99"));
-        verify(productRepository, times(1)).findById("p99");
+        assertThrows(ProductNotFoundException.class, () -> productService.getProductByName("PlayStation"));
+        verify(productRepository, times(1)).findByName("PlayStation");
     }
 
     // Additional Testcases Pending

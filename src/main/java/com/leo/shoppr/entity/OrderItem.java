@@ -16,10 +16,9 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
-    @JsonBackReference
-    private Order order;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
+    private Product product;
 
     @Min(value = 1, message = "Quantity should be greater than 0")
     @Column(name = "quantity", nullable = false)
@@ -30,21 +29,27 @@ public class OrderItem {
     @Column(name = "unit_price", precision = 12, scale = 2, nullable = false)
     private BigDecimal unitPrice;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "order_id", referencedColumnName = "id", nullable = false)
+    @JsonBackReference
+    private Order order;
+
     protected OrderItem() {
     }
 
-    public OrderItem(Order order, int quantity, BigDecimal unitPrice) {
-        this.order = order;
+    public OrderItem(Product product, int quantity, BigDecimal unitPrice, Order order) {
+        this.product = product;
         this.quantity = quantity;
         this.unitPrice = unitPrice;
+        this.order = order;
     }
 
     public String getId() {
         return id;
     }
 
-    public Order getOrder() {
-        return order;
+    public Product getProduct() {
+        return product;
     }
 
     public int getQuantity() {
@@ -55,10 +60,15 @@ public class OrderItem {
         return unitPrice;
     }
 
+    public Order getOrder() {
+        return order;
+    }
+
     @Override
     public String toString() {
         return "OrderItem{" +
                 "id='" + id + '\'' +
+                ", product=" + product +
                 ", quantity=" + quantity +
                 ", unitPrice=" + unitPrice +
                 '}';
@@ -69,9 +79,15 @@ public class OrderItem {
     }
 
     public static class Builder {
+        private Product product;
         private Order order;
         private int quantity;
         private BigDecimal unitPrice;
+
+        public Builder product(Product product) {
+            this.product = product;
+            return this;
+        }
 
         public Builder order(Order order) {
             this.order = order;
@@ -89,7 +105,7 @@ public class OrderItem {
         }
 
         public OrderItem build() {
-            return new OrderItem(order, quantity, unitPrice);
+            return new OrderItem(product, quantity, unitPrice, order);
         }
     }
 }

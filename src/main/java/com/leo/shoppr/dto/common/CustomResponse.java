@@ -1,4 +1,4 @@
-package com.leo.shoppr.response;
+package com.leo.shoppr.dto.common;
 
 public class CustomResponse<T> {
 

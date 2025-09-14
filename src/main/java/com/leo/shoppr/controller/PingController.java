@@ -1,7 +1,7 @@
 package com.leo.shoppr.controller;
 
-import com.leo.shoppr.response.CustomResponse;
-import com.leo.shoppr.response.ResponseStatus;
+import com.leo.shoppr.dto.common.CustomResponse;
+import com.leo.shoppr.dto.common.ResponseStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

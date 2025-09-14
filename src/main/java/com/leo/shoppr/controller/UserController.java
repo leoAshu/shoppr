@@ -1,8 +1,8 @@
 package com.leo.shoppr.controller;
 
 import com.leo.shoppr.entity.User;
-import com.leo.shoppr.response.CustomResponse;
-import com.leo.shoppr.response.ResponseStatus;
+import com.leo.shoppr.dto.common.CustomResponse;
+import com.leo.shoppr.dto.common.ResponseStatus;
 import com.leo.shoppr.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

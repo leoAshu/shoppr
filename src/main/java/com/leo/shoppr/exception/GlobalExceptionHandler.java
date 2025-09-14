@@ -1,7 +1,7 @@
 package com.leo.shoppr.exception;
 
-import com.leo.shoppr.response.CustomResponse;
-import com.leo.shoppr.response.ResponseStatus;
+import com.leo.shoppr.dto.common.CustomResponse;
+import com.leo.shoppr.dto.common.ResponseStatus;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

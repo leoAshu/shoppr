@@ -1,17 +1,15 @@
 package com.leo.shoppr.controller;
 
 import com.leo.shoppr.entity.Order;
-import com.leo.shoppr.response.CustomResponse;
-import com.leo.shoppr.response.ResponseStatus;
+import com.leo.shoppr.dto.common.CustomResponse;
+import com.leo.shoppr.dto.common.ResponseStatus;
 import com.leo.shoppr.service.OrderService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class OrderController {
 
     @GetMapping
     public ResponseEntity<CustomResponse<List<Order>>> getAllOrders() {
-        logger.debug("/orders");
+        logger.debug("GET: /orders");
 
         CustomResponse<List<Order>> response = CustomResponse.<List<Order>>builder()
                 .status(ResponseStatus.SUCCESS)
@@ -38,7 +36,7 @@ public class OrderController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CustomResponse<Order>> getOrderById(@PathVariable String id) {
-        logger.debug("/orders/{}", id);
+        logger.debug("GET: /orders/{}", id);
 
         CustomResponse<Order> response = CustomResponse.<Order>builder()
                 .status(ResponseStatus.SUCCESS)
@@ -48,7 +46,17 @@ public class OrderController {
         return  ResponseEntity.ok(response);
     }
 
-    // createOrder
-    // updateOrder
+    @PostMapping
+    public ResponseEntity<CustomResponse<Order>> createOrder(@Valid @RequestBody Order order) {
+        logger.debug("POST: /orders");
+        logger.debug(order.toString());
+
+        CustomResponse<Order> response = CustomResponse.<Order>builder()
+                .status(ResponseStatus.SUCCESS)
+                .data(orderService.createOrder(order))
+                .build();
+
+        return ResponseEntity.ok(response);
+    }
 
 }

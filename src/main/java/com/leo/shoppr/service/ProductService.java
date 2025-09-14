@@ -24,18 +24,19 @@ public class ProductService {
                 .orElseThrow(() -> new ProductNotFoundException(id));
     }
 
-    public Product createProduct(Product product) {
-        String newId = "p" + (productRepository.count() + 1);
-        product.setId(newId);
+    public Product getProductByName(String name) {
+        return productRepository
+                .findByName(name)
+                .orElseThrow(() -> new ProductNotFoundException(name));
+    }
 
+    public Product createProduct(Product product) {
         return productRepository.save(product);
     }
 
     public Product updateProduct(String id, Product updatedProduct) {
         Product existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(id));
-
-        updatedProduct.setId(existingProduct.getId());
 
         return productRepository.save(updatedProduct);
     }

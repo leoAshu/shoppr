@@ -1,8 +1,8 @@
 package com.leo.shoppr.controller;
 
 import com.leo.shoppr.entity.Product;
-import com.leo.shoppr.response.CustomResponse;
-import com.leo.shoppr.response.ResponseStatus;
+import com.leo.shoppr.dto.common.CustomResponse;
+import com.leo.shoppr.dto.common.ResponseStatus;
 import com.leo.shoppr.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
